@@ -1,8 +1,10 @@
 package uz.ruzyume.porfolio_block.config;
 
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 import uz.ruzyume.porfolio_block.provider.JwtProvider;
@@ -14,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@Component
 public class JwtFilter extends OncePerRequestFilter {
     private final JwtProvider jwtProvider;
     private final UserService userService;
@@ -37,6 +40,10 @@ public class JwtFilter extends OncePerRequestFilter {
 
         }
         }
-
+        try {
+            filterChain.doFilter(request, response);
+        }catch (IOException | ServletException e){
+            e.printStackTrace();
+        }
     }
 }
