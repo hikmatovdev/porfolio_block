@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.NonNull;
 import org.springframework.stereotype.Service;
 import uz.ruzyume.porfolio_block.domain._Contact;
+import uz.ruzyume.porfolio_block.exception.NotFoundException;
 import uz.ruzyume.porfolio_block.model.ContactDto;
 import uz.ruzyume.porfolio_block.model.GenericDto;
 import uz.ruzyume.porfolio_block.model.create.ContactCreateDto;
@@ -62,7 +63,7 @@ public class ContactService {
            _Contact contactUpdated = contactRepository.save(contactToUpdated);
            return objectMapper.convertValue(contactUpdated, ContactDto.class);
        }
-       throw new RuntimeException("Bunday id bilan contact topilmadi!");
+       throw new NotFoundException("Bunday id bilan contact topilmadi!");
     }
     public ContactDto get(@NonNull final Long id){
         Optional<_Contact> contactOptional = contactRepository.findByIdAndDeletedFalse(id);
@@ -70,7 +71,7 @@ public class ContactService {
             _Contact contact = contactOptional.get();
             return objectMapper.convertValue(contact, ContactDto.class);
         }
-        throw new RuntimeException("Bunday id bilan contact topilmadi!");
+        throw new NotFoundException("Bunday id bilan contact topilmadi!");
     }
     public List<ContactDto> getAll(){
         List<_Contact> contactList = contactRepository.findAllByDeletedFalse();
@@ -85,6 +86,6 @@ public class ContactService {
            contactRepository.save(contactToDeleted);
            return true;
         }
-        throw new RuntimeException("Bunday id bilan contact topilmadi!");
+        throw new NotFoundException("Bunday id bilan contact topilmadi!");
     }
 }

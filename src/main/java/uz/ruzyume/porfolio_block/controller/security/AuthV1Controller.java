@@ -5,22 +5,18 @@ import uz.ruzyume.porfolio_block.model.security.LoginDto;
 import uz.ruzyume.porfolio_block.service.securtiy.AuthService;
 
 @RestController
-@RequestMapping("api/permitted/v1")
-public class PermittedController {
+@RequestMapping("api/auth/v1")
+public class AuthV1Controller {
 
     private final AuthService authService;
 
-    public PermittedController(AuthService authService) {
+    public AuthV1Controller(AuthService authService) {
         this.authService = authService;
     }
 
 
-    @GetMapping
-        String get(){
-            return "It is unsecure API!";
-        }
         @PostMapping("/login")
-    String login(@RequestBody final LoginDto dto){
+        String login(@RequestBody final LoginDto dto){
             return authService.login(dto);
         }
 }

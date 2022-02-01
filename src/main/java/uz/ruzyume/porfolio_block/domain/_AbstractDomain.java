@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public abstract class _AbstractDomain {
+public  abstract class _AbstractDomain {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
